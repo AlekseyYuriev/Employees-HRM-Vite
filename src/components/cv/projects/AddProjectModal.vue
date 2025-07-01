@@ -169,7 +169,7 @@ function closeModal() {
       padding: 6px;
       max-width: 150px;
       width: 100%;
-      color: var(--color-btn-text);
+      color: var(--color-btn-text-submit);
       background-color: var(--color-btn-bg);
       border-radius: 0;
       box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px,

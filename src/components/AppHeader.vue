@@ -44,7 +44,7 @@
             variant="plain"
             :items="languages"
             v-model="language"
-            class="toolbar__select-lang text-white"
+            class="toolbar__select-lang"
             hide-details
           >
             <template v-slot:prepend-inner>
@@ -54,7 +54,7 @@
               <v-list-item v-bind="props" :title="item.value" />
             </template>
           </v-select>
-          <p v-if="user?.email" class="toolbar__email text-white">
+          <p v-if="user?.email" class="toolbar__email">
             {{ userHeaderName }}
           </p>
           <v-skeleton-loader

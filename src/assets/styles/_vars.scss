@@ -9,7 +9,8 @@ $font-roboto: "Roboto", Helvetica, Arial, sans-serif;
   color-scheme: light;
 
   // ====== Variables for light theme =====
-  --color-header-bg: #2e2e2e;
+  --color-header-bg: #ffffff;
+  --color-btn-text: #2e2e2e;
 
   --color-wrapper-bg: #ffffff;
   --color-wrapper-bg-rgb: 255, 255, 255;
@@ -26,7 +27,7 @@ $font-roboto: "Roboto", Helvetica, Arial, sans-serif;
   // ========================================
 
   // ====== Variables that are same for both themes =====
-  --color-btn-text: #ffffff;
+  --color-btn-text-submit: #ffffff;
   --color-btn-gray-text: #767676;
   --color-btn-gray-text-rgb: 117, 117, 117;
   --color-btn-bg: #c62f31;
@@ -57,6 +58,7 @@ $font-roboto: "Roboto", Helvetica, Arial, sans-serif;
 
   // ====== Variables for dark theme =====
   --color-header-bg: #272727;
+  --color-btn-text: #ffffff;
 
   --color-wrapper-bg: #353535;
   --color-wrapper-bg-rgb: 53, 53, 53;

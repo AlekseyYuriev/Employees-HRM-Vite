@@ -299,7 +299,7 @@ function onUpdateBtnClicked() {
     }
     .user-info__form-submit-btn {
       grid-area: btn;
-      color: var(--color-btn-text);
+      color: var(--color-btn-text-submit);
       background-color: var(--color-btn-bg);
       border-radius: 0;
       &:hover {
