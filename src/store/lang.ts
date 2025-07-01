@@ -88,5 +88,6 @@ export const useLangStore = defineStore("lang", () => {
     currLang,
     changeCurrLanguage,
     loadInitialLocale,
+    loadLocaleMessages,
   };
 });

@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import VueCookies from "vue-cookies";
-
 import useCookies from "../../src/composables/useCookies";
 
 vi.mock("vue-cookies", () => ({
