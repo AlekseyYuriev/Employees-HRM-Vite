@@ -30,8 +30,9 @@ import {
   VProgressCircular,
   VDialog,
 } from "vuetify/components";
+import type { Component } from "vue";
 
-export default {
+const vuetifyComponents: Record<string, Component> = {
   VBtn,
   VImg,
   VIcon,
@@ -63,3 +64,5 @@ export default {
   VProgressCircular,
   VDialog,
 };
+
+export default vuetifyComponents;
