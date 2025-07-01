@@ -1,9 +1,10 @@
 import { setActivePinia, createPinia } from "pinia";
 import { useToastStore } from "../../src/store/toast";
 import { describe, it, expect, beforeEach } from "vitest";
+import { Id } from "vue3-toastify";
 
-// Mock Id type as string for test simplicity
-const mockToastId = "mock-toast-id";
+// add const for toastId
+const mockToastId: Id = "mock-toast-id";
 
 describe("toast store", () => {
   beforeEach(() => {

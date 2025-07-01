@@ -6,8 +6,6 @@ import {
 } from "vue-router";
 import { ROUTES } from "../../src/constants/router";
 
-// --- Mocks ---
-
 const mockGetToken = vi.fn();
 const mockSetErrorToast = vi.fn();
 const mockHandleUnauthorizedMessage = vi.fn(() => "Your session has expired.");
@@ -37,13 +35,10 @@ vi.mock("@/router/pages", () => ({
   },
 }));
 
-// --- Main Test Suite ---
-
 describe("Vue Router", () => {
   let router: any;
 
   beforeEach(async () => {
-    // FIX: Mock the missing window.scrollTo browser API
     window.scrollTo = vi.fn();
 
     // Dynamically import the router to apply mocks
@@ -59,8 +54,6 @@ describe("Vue Router", () => {
     await router.isReady();
   });
 
-  // --- Basic Tests ---
-
   it("should create the router instance", () => {
     expect(router).toBeDefined();
   });
@@ -69,8 +62,6 @@ describe("Vue Router", () => {
     const expectedRouteCount = 14;
     expect(router.options.routes).toHaveLength(expectedRouteCount);
   });
-
-  // --- Navigation Guard Tests (`beforeEach`) ---
 
   it("should allow access to a protected route if user is authenticated", async () => {
     mockGetToken.mockReturnValue("fake-token");

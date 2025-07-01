@@ -5,7 +5,6 @@ import { ref } from "vue";
 import fs from "fs";
 import path from "path";
 
-// --- Mocks ---
 const mockSetLocaleMessage = vi.fn();
 const mockT = vi.fn((key) => key);
 const mockLocale = ref("en");
@@ -34,7 +33,6 @@ vi.mock("@/utils/handleNoLangMessage", () => ({
   handleLangLoadErrorMessage: () => "LANG_LOAD_ERROR",
 }));
 
-// --- Robust Dynamic Import Mock ---
 const getMessages = (locale: string) => {
   const jsonPath = path.resolve(
     __dirname,

@@ -1,10 +1,10 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-// @ts-expect-error: alias import for Vite
-import { useAuthStore } from "@/store/authStore";
+import { useAuthStore } from "../../src/store/authStore";
 import { setActivePinia, createPinia } from "pinia";
 
 vi.mock("vue-i18n", () => ({ useI18n: () => ({ t: (x: string) => x }) }));
 vi.mock("vue-router", () => ({ useRouter: () => ({ push: vi.fn() }) }));
+
 vi.mock("@/composables/useCookies", () => ({
   default: () => ({
     getToken: vi.fn(() => null),
@@ -12,9 +12,11 @@ vi.mock("@/composables/useCookies", () => ({
     removeToken: vi.fn(),
   }),
 }));
+
 vi.mock("@/composables/useToast", () => ({
   default: () => ({ setErrorToast: vi.fn() }),
 }));
+
 vi.mock("@/services/auth", () => ({
   login: vi.fn(async () => ({
     user: {
@@ -46,9 +48,9 @@ vi.mock("@/services/auth", () => ({
   })),
   handleLogout: vi.fn(),
 }));
+
 vi.mock("@/services/users/users", () => ({ getUserAuthDataById: vi.fn() }));
 
-// Silence localStorage
 Object.defineProperty(window, "localStorage", {
   value: {
     removeItem: vi.fn(),
