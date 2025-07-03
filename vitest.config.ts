@@ -9,6 +9,7 @@ export default defineConfig({
   plugins: [vue() as any, graphql()],
   test: {
     environment: "jsdom",
+    setupFiles: ["./tests/setup.ts"],
     server: {
       deps: {
         inline: ["vuetify"],

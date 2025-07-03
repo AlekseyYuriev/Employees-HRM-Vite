@@ -2,10 +2,7 @@ import { ref } from "vue";
 import { describe, expect, it, vi } from "vitest";
 import { mount } from "@vue/test-utils";
 import { createI18n } from "vue-i18n";
-import { createVuetify } from "vuetify";
-import * as components from "vuetify/components";
-import * as directives from "vuetify/directives";
-import { createTestingPinia } from "@pinia/testing";
+import { createPiniaTestingPlugin, vuetify } from "../setup";
 import { TAB_NAMES } from "../../src/constants/tabs";
 import AppTabs from "../../src/components/AppTabs.vue";
 
@@ -52,18 +49,11 @@ const i18n = createI18n({
   globalInjection: true,
 });
 
-const vuetify = createVuetify({
-  components,
-  directives,
-});
-
-global.ResizeObserver = require("resize-observer-polyfill");
-
 describe("AppTabs", () => {
   it("should render template with user tabs", () => {
     const wrapper = mount(AppTabs, {
       global: {
-        plugins: [createTestingPinia({ createSpy: vi.fn }), vuetify, i18n],
+        plugins: [createPiniaTestingPlugin, vuetify, i18n],
       },
     });
     const tabTexts = wrapper.findAll(".v-tab").map((tab) => tab.text());
@@ -81,7 +71,7 @@ describe("AppTabs", () => {
     };
     const wrapper = mount(AppTabs, {
       global: {
-        plugins: [createTestingPinia({ createSpy: vi.fn }), vuetify, i18n],
+        plugins: [createPiniaTestingPlugin, vuetify, i18n],
       },
     });
     const tabTexts = wrapper.findAll(".v-tab").map((tab) => tab.text());
@@ -103,7 +93,7 @@ describe("AppTabs", () => {
 
     const wrapper = mount(AppTabs, {
       global: {
-        plugins: [createTestingPinia({ createSpy: vi.fn }), vuetify, i18n],
+        plugins: [createPiniaTestingPlugin, vuetify, i18n],
       },
     });
 
@@ -129,7 +119,7 @@ describe("AppTabs", () => {
 
     const wrapper = mount(AppTabs, {
       global: {
-        plugins: [createTestingPinia({ createSpy: vi.fn }), vuetify, i18n],
+        plugins: [createPiniaTestingPlugin, vuetify, i18n],
       },
     });
 
@@ -164,7 +154,7 @@ describe("AppTabs", () => {
         routerMock.currentRoute.value = { params: { userId: 273, cvId: 273 } };
         const wrapper = mount(AppTabs, {
           global: {
-            plugins: [createTestingPinia({ createSpy: vi.fn }), vuetify, i18n],
+            plugins: [createPiniaTestingPlugin, vuetify, i18n],
           },
         });
         // The selected tab should have the correct class
@@ -191,7 +181,7 @@ describe("AppTabs", () => {
         routerMock.currentRoute.value = { params: { userId: 273, cvId: 273 } };
         const wrapper = mount(AppTabs, {
           global: {
-            plugins: [createTestingPinia({ createSpy: vi.fn }), vuetify, i18n],
+            plugins: [createPiniaTestingPlugin, vuetify, i18n],
           },
         });
         // The selected tab should have the correct class
