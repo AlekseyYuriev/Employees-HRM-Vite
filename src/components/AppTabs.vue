@@ -1,6 +1,6 @@
 <template>
   <v-tabs
-    v-if="$route.meta.hasTabs === TAB_NAMES.USER"
+    v-if="route.meta.hasTabs === TAB_NAMES.USER"
     v-model="userTabs"
     color="var(--color-active-text)"
     show-arrows
@@ -35,7 +35,7 @@
     </v-tab>
   </v-tabs>
   <v-tabs
-    v-if="$route.meta.hasTabs === TAB_NAMES.CV"
+    v-if="route.meta.hasTabs === TAB_NAMES.CV"
     v-model="cvsTabs"
     color="var(--color-active-text)"
     show-arrows
@@ -84,7 +84,7 @@ const cvsTabs = ref(ROUTES.CV_DETAILS.NAME);
 const router = useRouter();
 const route = useRoute();
 
-watch(route, updateTabs);
+watch(() => [route.fullPath, route.meta], updateTabs);
 
 updateTabs();
 
