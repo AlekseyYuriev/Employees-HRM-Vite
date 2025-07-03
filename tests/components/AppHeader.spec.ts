@@ -1,8 +1,7 @@
 import { mount } from "@vue/test-utils";
 import { ref } from "vue";
 import { describe, expect, it, vi } from "vitest";
-import { createI18n } from "vue-i18n";
-import { createPiniaTestingPlugin, vuetify } from "../setup";
+import { createPiniaTestingPlugin, i18n, vuetify } from "../setup";
 import AppHeader from "../../src/components/AppHeader.vue";
 
 const routeMock = ref({
@@ -22,30 +21,6 @@ vi.mock("vue-router", () => ({
     push: vi.fn(),
   }),
 }));
-
-const i18n = createI18n({
-  legacy: false,
-  locale: "en",
-  messages: {
-    en: {
-      appHeader: {
-        btnLogin: "btnLogin",
-        btnSignup: "btnSignup",
-      },
-      navigation: {
-        Home: "Home",
-        Employees: "Employees",
-        Projects: "Projects",
-        CVs: "CVs",
-        Departments: "Departments",
-        Positions: "Positions",
-        Skills: "Skills",
-        Languages: "Languages",
-      },
-    },
-  },
-  globalInjection: true,
-});
 
 describe("AppHeader", () => {
   it("should render template with class toolbar", () => {

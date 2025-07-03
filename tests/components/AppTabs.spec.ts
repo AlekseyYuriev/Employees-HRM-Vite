@@ -1,8 +1,7 @@
 import { ref } from "vue";
 import { describe, expect, it, vi } from "vitest";
 import { mount } from "@vue/test-utils";
-import { createI18n } from "vue-i18n";
-import { createPiniaTestingPlugin, vuetify } from "../setup";
+import { createPiniaTestingPlugin, i18n, vuetify } from "../setup";
 import { TAB_NAMES } from "../../src/constants/tabs";
 import AppTabs from "../../src/components/AppTabs.vue";
 
@@ -29,25 +28,6 @@ vi.mock("vue-router", () => ({
   }),
   useRouter: () => routerMock,
 }));
-
-const i18n = createI18n({
-  legacy: false,
-  locale: "en",
-  messages: {
-    en: {
-      appTabs: {
-        profile: "Profile",
-        skills: "Skills",
-        languages: "Languages",
-        cvs: "CVs",
-        details: "Details",
-        projects: "Projects",
-        preview: "Preview",
-      },
-    },
-  },
-  globalInjection: true,
-});
 
 describe("AppTabs", () => {
   it("should render template with user tabs", () => {
