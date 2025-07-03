@@ -2,8 +2,19 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 
 vi.mock("vuetify/styles", () => ({}));
 vi.mock("@mdi/font/css/materialdesignicons.css", () => ({}));
+vi.mock("../../../src/plugins/vuetify/components", () => ({
+  default: { VBtn: {}, VIcon: {} },
+}));
+vi.mock("../../../src/utils/theme", () => ({
+  appTheme: vi.fn(() => "Dark"),
+  getThemeValue: vi.fn(() => "dark"),
+}));
+vi.mock("../../../src/utils/getUserLocale", () => ({
+  default: vi.fn(() => "en"),
+}));
 
 beforeEach(() => {
+  // Mock import.meta.env before tests run
   // @ts-ignore
   globalThis.importMetaEnv = {
     VITE_FALLBACK_LOCALE: "en",
@@ -17,32 +28,16 @@ beforeEach(() => {
 
 describe("Vuetify plugin", () => {
   it("should create Vuetify instance", async () => {
-    // Static mocks for components
-    vi.mock("../../../src/plugins/vuetify/components", () => ({
-      default: { VBtn: {}, VIcon: {} },
-    }));
-
-    // Dynamic mocks for theme and locale
-    const appThemeMock = vi.fn(() => "Dark");
-    const getThemeValueMock = vi.fn(() => "dark");
-    vi.doMock("../../../src/utils/theme", () => ({
-      appTheme: appThemeMock,
-      getThemeValue: getThemeValueMock,
-    }));
-
-    const getUserLocaleMock = vi.fn(() => "en");
-    vi.doMock("../../../src/utils/getUserLocale", () => ({
-      default: getUserLocaleMock,
-    }));
-
+    // Import after mocks are set up
     const { default: vuetify } = await import(
       "../../../src/plugins/vuetify/index"
     );
+
     expect(vuetify).toBeDefined();
     expect(typeof vuetify.install).toBe("function");
   });
 
-  it("should use import.meta.env.VITE_FALLBACK_LOCALE for fallback", async () => {
+  it("should use import.meta.env.VITE_FALLBACK_LOCALE for fallback", () => {
     expect((import.meta as any).env.VITE_FALLBACK_LOCALE).toBe("en");
   });
 });
