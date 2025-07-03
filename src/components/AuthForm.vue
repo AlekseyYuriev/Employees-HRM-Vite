@@ -144,8 +144,6 @@ const submitForm = async (): Promise<void> => {
     } finally {
       isLoading.value = false;
     }
-  } else {
-    return;
   }
 };
 </script>

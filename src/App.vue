@@ -36,7 +36,7 @@ const langStore = useLangStore();
 
 const vuetifyTheme = useTheme();
 
-const { locale } = useI18n({ useScope: "global" });
+const { locale, t } = useI18n({ useScope: "global" });
 
 const isLogging = ref(true);
 
@@ -85,7 +85,7 @@ onMounted(async () => {
   const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
   mediaQuery.addEventListener("change", onDeviceSettingsUpdate);
 
-  authStore.fetchUserAuthData().finally(() => {
+  authStore.fetchUserAuthData(t).finally(() => {
     isLogging.value = false;
   });
 });
