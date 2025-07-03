@@ -2,10 +2,10 @@ import { fileURLToPath, URL } from "node:url";
 
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import graphqlLoader from "vite-plugin-graphql-loader";
+import graphql from "@rollup/plugin-graphql";
 
 export default defineConfig({
-  plugins: [vue(), graphqlLoader()],
+  plugins: [vue(), graphql()],
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),

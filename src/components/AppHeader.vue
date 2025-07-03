@@ -267,7 +267,7 @@ watch(locale, (newValue) => {
 });
 </script>
 
-<style lang="scss" scopped>
+<style lang="scss">
 .empty-header {
   height: 64px;
   background-color: var(--color-header-bg);

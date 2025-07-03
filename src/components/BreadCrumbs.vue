@@ -153,7 +153,7 @@ function updateEntityName() {
 }
 </script>
 
-<style lang="scss" scopped>
+<style lang="scss">
 .app-breadcrumbs {
   flex-wrap: wrap;
 }

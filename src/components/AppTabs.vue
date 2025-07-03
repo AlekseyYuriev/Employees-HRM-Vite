@@ -138,7 +138,7 @@ function openCvInfoRoute(routePath: string) {
 }
 </script>
 
-<style lang="scss" scopped>
+<style lang="scss">
 .v-btn.app-tab {
   width: 150px;
   @media (max-width: $phone-l) {

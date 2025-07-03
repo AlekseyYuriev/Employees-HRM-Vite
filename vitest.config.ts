@@ -1,20 +1,32 @@
 // vitest.config.ts
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitest/config";
+import vue from "@vitejs/plugin-vue";
+import graphql from "@rollup/plugin-graphql";
 import { coverageConfigDefaults } from "vitest/config";
 
 export default defineConfig({
+  plugins: [vue() as any, graphql()],
   test: {
     environment: "jsdom",
+    server: {
+      deps: {
+        inline: ["vuetify"],
+      },
+    },
     coverage: {
       reporter: ["text", "json", "html"],
       exclude: [
-        ...coverageConfigDefaults.exclude,
+        "**/*.d.ts",
+        "**/node_modules/**",
+        "**/*.config.{js,cjs,mjs,ts,cts,mts}",
+        "public/**/*",
         "coverage/**",
         "dist/**",
-        "**/node_modules/**",
-        "**/*.d.ts",
-        "**/*.config.{js,cjs,mjs,ts,cts,mts}",
+        "**/types/**",
+        "tests/**",
+        "src/assets/**",
+        ...coverageConfigDefaults.exclude,
       ],
     },
     include: ["**/*.spec.ts"],
