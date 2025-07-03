@@ -45,7 +45,7 @@ describe("AuthForm", () => {
   beforeEach(() => {
     setActivePinia(createPinia());
     authStore = useAuthStore();
-    vi.clearAllMocks(); // Reset mocks between tests
+    vi.clearAllMocks();
   });
 
   it("renders auth form with sign-in content", () => {
@@ -63,7 +63,6 @@ describe("AuthForm", () => {
   });
 
   it("submits login form successfully", async () => {
-    routeMock.value.fullPath = "/sign-in";
     const loginMock = vi.fn().mockResolvedValue(undefined);
     authStore.loginUser = loginMock;
 
@@ -80,6 +79,7 @@ describe("AuthForm", () => {
     await wrapper.find('input[type="password"]').setValue("123456");
 
     await wrapper.find("form").trigger("submit.prevent");
+    // ensures we wait for the DOM to update after async form submission
     await flushPromises();
 
     expect(loginMock).toHaveBeenCalledWith("test@example.com", "123456");
@@ -145,20 +145,21 @@ describe("AuthForm", () => {
       },
     });
 
+    // Find the password field
     const passwordField = wrapper.findAllComponents({ name: "VTextField" })[1];
+
+    // Find the append-inner icon inside the password field
+    const appendIcon = passwordField.find(".v-field__append-inner .v-icon"); // Adjust selector as needed
 
     // Initial state should be password
     expect(passwordField.props("type")).toBe("password");
 
-    // Simulate clicking the "append-inner" icon (eye icon)
-    await passwordField.vm.$emit("click:append-inner");
-
-    // The type should now be "text"
+    // Simulate clicking the eye icon
+    await appendIcon.trigger("click");
     expect(passwordField.props("type")).toBe("text");
 
     // Click again to toggle back
-    await passwordField.vm.$emit("click:append-inner");
-
+    await appendIcon.trigger("click");
     expect(passwordField.props("type")).toBe("password");
   });
 });
