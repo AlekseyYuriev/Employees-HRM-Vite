@@ -1,6 +1,6 @@
 <template>
-  <div v-if="$route.meta.notFound" class="empty-header"></div>
-  <div v-else-if="!$route.meta.requiresAuth" class="app-header">
+  <div v-if="route.meta.notFound" class="empty-header"></div>
+  <div v-else-if="!route.meta.requiresAuth" class="app-header">
     <v-toolbar class="app-header" :elevation="7" color="var(--color-header-bg)">
       <div class="app-header__buttons">
         <v-btn
@@ -174,7 +174,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/store/authStore";

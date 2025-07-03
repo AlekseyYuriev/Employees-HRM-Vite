@@ -26,6 +26,7 @@ export default defineConfig({
         "**/types/**",
         "tests/**",
         "src/assets/**",
+        "src/constants/**",
         ...coverageConfigDefaults.exclude,
       ],
     },
