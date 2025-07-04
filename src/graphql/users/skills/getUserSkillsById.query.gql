@@ -5,7 +5,7 @@ query GET_USER_SKILLS_BY_ID($userId: ID!) {
       id
       skills {
         name
-        category
+        categoryId
         mastery
       }
     }

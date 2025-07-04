@@ -24,7 +24,6 @@ query GET_CV_PREVIEW_DATA_BY_ID($cvId: ID!) {
     }
     skills {
       name
-      category
       mastery
     }
     languages {
