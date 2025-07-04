@@ -6,7 +6,6 @@
     <v-btn
       v-if="isNotFoundError"
       class="error-wrapper__back-to-main-btn"
-      router
       :to="ROUTES.USERS.PATH"
     >
       {{ $t("errors.backToMainPage") }}
