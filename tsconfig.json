@@ -15,7 +15,8 @@
     "outDir": "dist",
     "declaration": true,
     "sourceMap": true,
-    "types": ["vite/client", "vuetify"]
+    "types": ["vite/client", "vuetify"],
+    "lib": ["esnext", "dom"]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "exclude": ["node_modules"]

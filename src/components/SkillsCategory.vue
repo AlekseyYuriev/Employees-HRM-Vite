@@ -27,11 +27,12 @@
               )
           "
           @contextmenu.prevent="
-            (e: PointerEvent) =>
+            // @ts-ignore
+            (e) =>
               handleSetCardForDeletion(
                 categorySkill.name,
                 categorySkill.skillIndex,
-                e.pointerType === 'touch'
+                (e as PointerEvent).pointerType === 'touch'
               )
           "
           v-long-press="
