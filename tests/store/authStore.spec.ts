@@ -1,6 +1,9 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { useAuthStore } from "../../src/store/authStore";
 import { setActivePinia, createPinia } from "pinia";
+import * as useCookiesComposable from "../../src/composables/useCookies";
+import * as useToastComposable from "../../src/composables/useToast";
+import * as usersService from "../../src/services/users/users";
 
 vi.mock("vue-i18n", () => ({ useI18n: () => ({ t: (x: string) => x }) }));
 vi.mock("vue-router", () => ({ useRouter: () => ({ push: vi.fn() }) }));
@@ -97,5 +100,64 @@ describe("authStore", () => {
     };
     store.logout();
     expect(store.user).toBe(null);
+  });
+
+  it("fetchUserAuthData sets user from token", async () => {
+    // Create a valid JWT with base64-encoded payload
+    const payload = { sub: "123", exp: Math.floor(Date.now() / 1000) + 3600 };
+    const base64Payload = btoa(JSON.stringify(payload));
+    const mockToken = `header.${base64Payload}.signature`;
+
+    // MOCK useCookies to return the mock token
+    vi.spyOn(useCookiesComposable, "default").mockReturnValue({
+      getToken: () => mockToken,
+      setToken: vi.fn(),
+      removeToken: vi.fn(),
+    });
+
+    // MOCK getUserAuthDataById to return mock user data
+    const mockUser = {
+      id: "123",
+      email: "user@test.com",
+      profile: {
+        first_name: "Test",
+        last_name: "User",
+        full_name: "Test User",
+        avatar: "avatar.png",
+      },
+    };
+    vi.spyOn(usersService, "getUserAuthDataById").mockResolvedValue(mockUser);
+
+    // Mock toast composable with all required methods
+    vi.spyOn(useToastComposable, "default").mockReturnValue({
+      setErrorToast: vi.fn(),
+      removeCurrToast: vi.fn(),
+    });
+
+    const store = useAuthStore();
+    await store.fetchUserAuthData();
+
+    // Assert
+    expect(store.user).toEqual({
+      id: "123",
+      email: "user@test.com",
+      firstName: "Test",
+      lastName: "User",
+      fullName: "Test User",
+      avatar: "avatar.png",
+    });
+  });
+
+  it("fetchUserAuthData returns early if token is missing", async () => {
+    // Override the previous mock to return `null` again
+    vi.spyOn(useCookiesComposable, "default").mockReturnValue({
+      getToken: () => null,
+      setToken: vi.fn(),
+      removeToken: vi.fn(),
+    });
+
+    const store = useAuthStore();
+    await store.fetchUserAuthData();
+    expect(store.user).toBe(null); // nothing should change
   });
 });

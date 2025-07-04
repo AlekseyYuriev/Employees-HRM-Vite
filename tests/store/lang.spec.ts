@@ -90,6 +90,16 @@ describe("useLangStore", () => {
       "de",
       importMessages.de.default
     );
+    await store.loadLocaleMessages("English");
+    expect(mockSetLocaleMessage).toHaveBeenCalledWith(
+      "en",
+      importMessages.en.default
+    );
+    await store.loadLocaleMessages("Русский");
+    expect(mockSetLocaleMessage).toHaveBeenCalledWith(
+      "ru",
+      importMessages.ru.default
+    );
   });
 
   it("loadLocaleMessages does not set locale if already present", async () => {
@@ -125,5 +135,15 @@ describe("useLangStore", () => {
     expect(mockVuetifyCurrentLocale.value).toBe("de");
     expect(localStorage.getItem("language")).toBe("de");
     expect(document.querySelector("html")?.getAttribute("lang")).toBe("de");
+    await store.changeCurrLanguage("English");
+    expect(mockLocale.value).toBe("en");
+    expect(mockVuetifyCurrentLocale.value).toBe("en");
+    expect(localStorage.getItem("language")).toBe("en");
+    expect(document.querySelector("html")?.getAttribute("lang")).toBe("en");
+    await store.changeCurrLanguage("Русский");
+    expect(mockLocale.value).toBe("ru");
+    expect(mockVuetifyCurrentLocale.value).toBe("ru");
+    expect(localStorage.getItem("language")).toBe("ru");
+    expect(document.querySelector("html")?.getAttribute("lang")).toBe("ru");
   });
 });

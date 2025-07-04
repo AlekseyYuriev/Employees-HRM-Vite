@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { gql } from "@apollo/client/core";
 
 describe("apolloConfig plugin", () => {
   beforeEach(() => {
@@ -308,5 +309,59 @@ describe("apolloConfig plugin", () => {
     expect(profileLanguagesMerge([1, 2], [3, 4])).toEqual([3, 4]);
     expect(cvSkillsMerge([1, 2], [3, 4])).toEqual([3, 4]);
     expect(cvProjectsMerge([1, 2], [3, 4])).toEqual([3, 4]);
+  });
+
+  it("authLink adds correct authorization header based on token logic", async () => {
+    const getToken = vi.fn((key) => {
+      if (key === "accessToken") return null; // simulate missing access token
+      if (key === "refreshToken") return "refresh-token"; // fallback
+    });
+
+    const refreshAccessToken = vi.fn().mockResolvedValue(undefined);
+
+    vi.doMock("../../src/composables/useCookies", () => ({
+      default: () => ({ getToken }),
+    }));
+
+    vi.doMock("../../src/services/auth", () => ({
+      refreshAccessToken,
+    }));
+
+    const { default: apolloClient } = await import(
+      "../../src/plugins/apolloConfig"
+    );
+
+    // Use a minimal valid GraphQL query
+    const query = gql`
+      query MY_SECURE_QUERY {
+        __typename
+      }
+    `;
+
+    const op: any = {
+      query,
+      operationName: "MY_SECURE_QUERY",
+      getContext: () => ({ headers: { foo: "bar" } }),
+      setContext: vi.fn(),
+    };
+
+    // @ts-ignore
+    const observable = apolloClient.link.request(op, {});
+    if (!observable) throw new Error("Link did not return an observable");
+
+    await new Promise((resolve, reject) => {
+      observable.subscribe({
+        next: resolve,
+        error: reject,
+      });
+    });
+
+    expect(refreshAccessToken).toHaveBeenCalled();
+    expect(op.setContext).toHaveBeenCalledWith({
+      headers: {
+        foo: "bar",
+        authorization: "refresh-token",
+      },
+    });
   });
 });

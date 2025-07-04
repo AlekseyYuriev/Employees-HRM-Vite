@@ -29,6 +29,8 @@ export default defineConfig({
         "src/assets/**",
         "src/constants/**",
         "src/components/UI/index.ts",
+        "src/App.vue",
+        "src/main.ts",
         ...coverageConfigDefaults.exclude,
       ],
     },
