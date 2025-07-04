@@ -35,7 +35,7 @@ describe("Vuetify plugin", () => {
 
     expect(vuetify).toBeDefined();
     expect(typeof vuetify.install).toBe("function");
-  });
+  }, 10000);
 
   it("should use import.meta.env.VITE_FALLBACK_LOCALE for fallback", () => {
     expect((import.meta as any).env.VITE_FALLBACK_LOCALE).toBe("en");

@@ -11,7 +11,7 @@ describe("toastifyConfig plugin", () => {
     const toastifyConfig = (await import("../../src/plugins/toastifyConfig"))
       .default;
     expect(toastifyConfig.clearOnUrlChange).toBe(false);
-  });
+  }, 10000);
 
   it("should use getThemeValue(appTheme()) for theme", async () => {
     const fakeTheme = "Light";

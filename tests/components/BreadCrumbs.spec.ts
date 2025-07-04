@@ -9,6 +9,7 @@ const mockRouter = createRouter({
   history: createWebHistory(),
   routes: [
     { path: "/users", name: "Users", component: { render: () => null } },
+    { path: "/cvs", name: "Cvs", component: { render: () => null } },
     {
       path: "/users/:id",
       name: "UserDetail",
