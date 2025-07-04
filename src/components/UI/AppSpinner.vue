@@ -14,5 +14,3 @@ defineComponent({
   name: "AppSpinner",
 });
 </script>
-
-<style scoped></style>
