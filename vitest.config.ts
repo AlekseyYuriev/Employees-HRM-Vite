@@ -28,6 +28,7 @@ export default defineConfig({
         "tests/**",
         "src/assets/**",
         "src/constants/**",
+        "src/components/UI/index.ts",
         ...coverageConfigDefaults.exclude,
       ],
     },
